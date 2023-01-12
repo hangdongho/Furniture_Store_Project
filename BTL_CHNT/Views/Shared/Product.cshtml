@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BTL_CHNT.Models.Entities.SAN_PHAM>
+<!-- Single Product Area -->
+@foreach (var product in Model)
+{
+    <div class="col-12 col-sm-6 col-md-12 col-xl-6">
+        <div class="single-product-wrapper">
+            <!-- Product Image -->
+            <div class="product-img">
+                <img src="@product.hinhanh" alt="">
+                <!-- Hover Thumb -->
+                <img class="hover-img" src="@product.hinhanh" alt="">
+            </div>
+
+            <!-- Product Description -->
+            <div class="product-description d-flex align-items-center justify-content-between">
+                <!-- Product Meta Data -->
+                <div class="product-meta-data">
+                    <div class="line"></div>
+                    <p class="product-price">@product.gia</p>
+                    <a href="@Url.Action("Details","Product",new { id = product.masanpham})">
+                        <h6>@product.tensanpham</h6>
+                    </a>
+                </div>
+                <!-- Ratings & Cart -->
+                <div class="ratings-cart text-right">
+                    <div class="ratings">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    </div>
+                    <div class="add-cart">
+                        <h4><a href="/gio-hang?id=@product.masanpham&quantity=1" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="~/Content/img/core-img/cart.png" alt="">Add to cart</a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}

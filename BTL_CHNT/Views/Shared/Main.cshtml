@@ -1,0 +1,17 @@
+﻿@model IEnumerable<BTL_CHNT.Models.Entities.SAN_PHAM>
+<div class="amado-pro-catagory clearfix">
+    @foreach (var hh in Model)
+    {
+        <div class="single-products-catagory clearfix">
+            <a href="@Url.Action("Details","Product",new { id = hh.masanpham})">
+                <img src="~/Content/img/bg-img/@hh.hinhanh" alt="">
+                <!-- Hover Content -->
+                <div class="hover-content">
+                    <div class="line"></div>
+                    <p>@hh.gia</p>
+                    <h4>@hh.tensanpham</h4>
+                </div>
+            </a>
+        </div>
+    }
+</div>

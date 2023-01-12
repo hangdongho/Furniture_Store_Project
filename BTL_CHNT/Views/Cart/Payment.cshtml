@@ -1,0 +1,66 @@
+﻿@model List<BTL_CHNT.Models.CartItem>
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>Payment</h2>*@
+@if (Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Mã sản phẩm</td>
+                <td>Tên sản phẩm</td>
+                <td>Ảnh</td>
+                <td>Số lượng</td>
+                <td>Đơn giá</td>
+                <td>Thành tiền</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.sanpham.masanpham</td>
+                    <td>@item.sanpham.tensanpham</td>
+                    <td><img src="~/Content/img/bg-img/@item.sanpham.hinhanh" width=" 100" /></td>
+                    <td><input type="text" class="quantity" data-id="@item.sanpham.masanpham" value="@item.soluong" /></td>
+                    <td>@item.sanpham.gia.ToString("N0")</td>
+                    <td>@((item.sanpham.gia * item.soluong).ToString("N0"))</td>
+                    <td><a href="#" data-id="@item.sanpham.masanpham" class="btn-delete">Delete</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<div class="section group">
+   
+    @using (Html.BeginForm("Payment", "Cart", FormMethod.Post))
+    {
+        <div class="form-group">
+            <label>Người nhận</label>
+            <br />
+            <input name="shipName" class="form-group" />
+        </div>
+        <div class="form-group">
+            <label>Số điện thoại</label>
+            <br />
+            <input name="mobile" class="form-group" />
+        </div>
+        <div class="form-group">
+            <label>Địa chỉ</label>
+            <br />
+            <input name="address" class="form-group" />
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <br />
+            <input name="email" class="form-group" />
+        </div>
+        <button type="submit" class="btn">Thanh toán</button>
+    }
+</div>
+
+<script src="~/Scripts/js/jquery/jquery-2.2.4.min.js"></script>
+<script src="~/Scripts/js/controller/cartController.js"></script>

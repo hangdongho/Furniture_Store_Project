@@ -1,0 +1,80 @@
+﻿@model PagedList.IPagedList<BTL_CHNT.Models.Entities.SAN_PHAM>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Quản lý sản phẩm</h1>
+
+    <!-- DataTales Example -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-body">
+                @using (Html.BeginForm("Index", "Product", FormMethod.Get))
+                {
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-md-4">
+                                <input type="text" name="searchString" />
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Mã sản phẩm</th>
+                                <th>Mã loại sản phẩm</th>
+                                <th>Mã thương hiệu</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Hình ảnh</th>
+                                <th>Mô tả</th>
+                                <th>Tình trạng</th>
+                                <th>Giá</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="row_@item.masanpham">
+                                    <td>@item.masanpham</td>
+                                    <td>@item.maloaisp</td>
+                                    <td>@item.mathuonghieu</td>
+                                    <td>@item.tensanpham</td>
+                                    <td>@item.hinhanh</td>
+                                    <td>@item.mota</td>
+                                    <td>@item.tinhtrang</td>
+                                    <td>@item.gia</td>
+                                    <td>
+                                        @Html.ActionLink("Thêm mới", "Create", new { id = item.masanpham })|
+                                        @Html.ActionLink("Sửa", "Edit", new { id = item.masanpham }) |
+                                        @*@Html.ActionLink("Delete", "Delete", new { id = item.masanpham })*@
+                                        @Ajax.ActionLink("Xóa", "Delete", new { @id = item.masanpham }, new AjaxOptions
+                                          {
+                                              Confirm = "Bạn có muốn xóa bản ghi này không ?",
+                                              OnComplete = "$('#row_" + @item.masanpham + "').remove()",
+                                              HttpMethod = "Delete"
+                                          })
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
